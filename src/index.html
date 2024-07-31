@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시간표 조합 생성기</title>
+
+    <link rel = "stylesheet" href="main.css">
+    <script defer src = "main.js"></script>
+</head>
+<body>
+    <header>
+        시간표 조합 생성기
+    </header>
+    <main>
+        <section id = "howToUse">
+            
+        </section>
+        <section id = "inputSubject">
+            <div>수강할 과목을 입력하세요</div>
+            <div>
+                <div id = "subjectBox">
+                    <label for = "subjectName">과목이름</label>
+                    <input id = "subjectName" type = "text">
+                    <button onclick = "addSubject()">추가하기</button>
+                </div>
+                <div id = "resultBox">
+                    <table>
+                        <thead>
+                            <th>필수</th>
+                            <th>과목이름</th>
+                            <th>삭제</th>
+                            <th>수업추가</th>
+                        </thead>
+                        <tbody id = "resultBody">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+
+    </footer>
+</body>
+</html>
