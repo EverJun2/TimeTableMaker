@@ -16,28 +16,41 @@
         <section id = "howToUse">
             
         </section>
-        <section id = "inputSubject">
-            <div>수강할 과목을 입력하세요</div>
-            <div>
-                <div id = "subjectBox">
-                    <label for = "subjectName">과목이름</label>
-                    <input id = "subjectName" type = "text">
-                    <button onclick = "addSubject()">추가하기</button>
-                </div>
-                <div id = "resultBox">
-                    <table>
-                        <thead>
-                            <th>필수</th>
-                            <th>과목이름</th>
-                            <th>삭제</th>
-                            <th>수업추가</th>
-                        </thead>
-                        <tbody id = "resultBody">
-
-                        </tbody>
-                    </table>
-                </div>
+        
+        <section id = "classStatus">
+            <div id = "autoInputBox">
+                <input type = 'file' id="fileInput">
             </div>
+            <div id = "manualInputBox">
+                <label for = "shouldInclude">필수 여부</label>
+                <input id = "shouldInclude" type = "checkbox">
+
+                <label for = "subjectName">과목이름</label>
+                <input id = "subjectName" type = "text">
+
+                <label for = "subjectCode">과목코드</label>
+                <input id = "subjectCode" type = "text">
+
+                <button onclick = "addSubject()">추가하기</button>
+            </div>
+
+            <div>추가된 수업</div>
+            <div id = "classTableBox">
+                <table id = "classTable">
+                    <thead>
+                        <th>필수</th>
+                        <th>과목이름</th>
+                        <th>과목코드</th>
+                        <th>요일</th>
+                        <th>교시</th>
+                        <th>삭제</th>
+                    </thead>
+                <tbody id = "classTableBody">
+
+                </tbody>
+                </table>
+            </div>
+            <button onclick = "makeTimeTable()">조합하기</button>
         </section>
     </main>
     <footer>

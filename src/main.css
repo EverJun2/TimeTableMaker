@@ -25,24 +25,28 @@ main{
     width : 60%;
 }
 
-table{
+#classTable{
+    margin: 40px 0;
     width : 100%;
     text-align: center;
 }
 
-th{
-    font-size: 1.3em;
+#classTable th{
+    background-color: rgb(0, 106, 255);
+    color : white;
+    font-weight: 300;
+    height : 30px;
 }
-td{
+#classTable td{
     font-size : 1em;
 }
 
-.addBtn{
-    background-color: rgb(0, 76, 255);
-    color : white;
-    border : none;
-    width : 20px;
-    height : 20px;
+tr td {
+    height : 40px;
+}
+
+.selected{
+    background-color: rgb(246, 241, 130);
 }
 .deleteBtn{
     background-color: rgb(255, 0, 0);
