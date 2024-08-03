@@ -180,7 +180,7 @@ function fillTimeTable(data,timeTable){
     let scor = 0;
     for(let r = 0; r<timeTable.length; r++){
         for(let c = 0; c<timeTable[r].length; c++){
-            if(timeTable[r][c] === data.name){scor++;}
+            if(timeTable[r][c].name === data.name){scor++;}
         }
         console.log(scor);
     }
