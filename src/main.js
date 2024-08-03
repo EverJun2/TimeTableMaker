@@ -3,8 +3,8 @@ let totalClass
 let idx = 0;
 let totalCnt = 1;
 
-const classes = {}             //과목 객체
-const combineResult = {}       //시간표 조합 객체
+const classes = {}        ;     //과목 객체
+const combineResult = {};     //시간표 조합 객체
 
 function addSubject(){
     //입력받은 값을 객체에 저장하고 페이지에 추가합니다
@@ -159,64 +159,80 @@ function addTable(data){
 }
 
 function makeTimeTable() {
-    
-    classes.forEach(element => {
-        combineResult[totalCnt] = {};
-        combineResult[totalCnt].M1 = null;
-        combineResult[totalCnt].M2 = null;
-        combineResult[totalCnt].M3 = null;
-        combineResult[totalCnt].M4 = null;
-        combineResult[totalCnt].M5 = null;
-        combineResult[totalCnt].M6 = null;
-        combineResult[totalCnt].M7 = null;
-        combineResult[totalCnt].M8 = null;
+    const rows = 5;
+    const columns = 8;
 
-        combineResult[totalCnt].Tu1 = null;
-        combineResult[totalCnt].Tu2 = null;
-        combineResult[totalCnt].Tu3 = null;
-        combineResult[totalCnt].Tu4 = null;
-        combineResult[totalCnt].Tu5 = null;
-        combineResult[totalCnt].Tu6 = null;
-        combineResult[totalCnt].Tu7 = null;
-        combineResult[totalCnt].Tu8 = null;
+    // for(let i = 0; i<Object.keys(classes).length; i++){
+        const data = classes[0];
+        let timeTable = Array.from({ length: rows }, () => Array(columns).fill("0"));
+        combineResult[0] = {};
 
-        combineResult[totalCnt].w1 = null;
-        combineResult[totalCnt].w2 = null;
-        combineResult[totalCnt].w3 = null;
-        combineResult[totalCnt].w4 = null;
-        combineResult[totalCnt].w5 = null;
-        combineResult[totalCnt].w6 = null;
-        combineResult[totalCnt].w7 = null;
-        combineResult[totalCnt].w8 = null;
+        timeTable = fillTimeTable(data,timeTable);
+        for(let i = 1; i<Object.keys(classes).length; i++){
+            timeTable = fillTimeTable(classes[i],timeTable);
+        }
 
-        combineResult[totalCnt].Th1 = null;
-        combineResult[totalCnt].Th2 = null;
-        combineResult[totalCnt].Th3 = null;
-        combineResult[totalCnt].Th4 = null;
-        combineResult[totalCnt].Th5 = null;
-        combineResult[totalCnt].Th6 = null;
-        combineResult[totalCnt].Th7 = null;
-        combineResult[totalCnt].Th8 = null;
-
-        combineResult[totalCnt].F1 = null;
-        combineResult[totalCnt].F2 = null;
-        combineResult[totalCnt].F3 = null;
-        combineResult[totalCnt].F4 = null;
-        combineResult[totalCnt].F5 = null;
-        combineResult[totalCnt].F6 = null;
-        combineResult[totalCnt].F7 = null;
-        combineResult[totalCnt].F8 = null;
-
-        element.forEach(element1 => {
-            for(let i = element1.startTime; i<=elemennt1.finishTime; i++){
-                if(element1.day === "월"){
-                    if(i == 1){
-                        
-                    }
-                }
-            }
-            if(combineResult[totalCnt])
-        })
-        totalCnt++;
-    });
+        combineResult[0] = timeTable;
+    // }
 }
+
+function fillTimeTable(data,timeTable){
+    let scor = 0;
+    for(let r = 0; r<timeTable.length; r++){
+        for(let c = 0; c<timeTable[r].length; c++){
+            if(timeTable[r][c] === data.name){scor++;}
+        }
+        console.log(scor);
+    }
+
+    if(scor == 0){
+        if(data.day === "월"){
+            let score = 0;
+            for(let t = data.startTime; t <= data.finishTime; t++){
+                if(timeTable[0][t-1] != 0){score++;}
+            }
+            if(score == 0){
+                for(let z = data.startTime; z <= data.finishTime; z++){timeTable[0][z-1] = data;}
+            }
+        }
+        else if(data.day === "화"){
+            let score = 0;
+            for(let t = data.startTime; t <= data.finishTime; t++){
+                if(timeTable[1][t-1] != 0){score++;}
+            }
+            if(score == 0){
+                for(let z = data.startTime; z <= data.finishTime; z++){timeTable[1][z-1] = data;}
+            }
+        }
+        else if(data.day === "수"){
+            let score = 0;
+            for(let t = data.startTime; t <= data.finishTime; t++){
+                if(timeTable[2][t-1] != 0){score++;}
+            }
+            if(score == 0){
+                for(let z = data.startTime; z <= data.finishTime; z++){timeTable[2][z-1] = data;}
+            }
+        }
+        else if(data.day === "목"){
+            let score = 0;
+            for(let t = data.startTime; t <= data.finishTime; t++){
+                if(timeTable[3][t-1] != 0){score++;}
+            }
+            if(score == 0){
+                for(let z = data.startTime; z <= data.finishTime; z++){timeTable[3][z-1] = data;}
+            }
+        }
+        else if(data.day === "금"){
+            let score = 0;
+            for(let t = data.startTime; t <= data.finishTime; t++){
+                if(timeTable[4][t-1] != 0){score++;}
+            }
+            if(score == 0){
+                for(let z = data.startTime; z <= data.finishTime; z++){timeTable[4][z-1] = data;}
+            }
+        }
+        
+    }  
+    return timeTable;
+}
+    
