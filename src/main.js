@@ -5,7 +5,6 @@ let totalCnt = 1;
 
 const classes = {}        ;     //과목 객체
 const combineResult = {};     //시간표 조합 객체
-
 function addSubject(){
     //입력받은 값을 객체에 저장하고 페이지에 추가합니다
     const dataInclude =  document.getElementById("shouldInclude").value;
@@ -161,19 +160,36 @@ function addTable(data){
 function makeTimeTable() {
     const rows = 5;
     const columns = 8;
+    let verify = 0;
+    let idx = 0;
 
-    // for(let i = 0; i<Object.keys(classes).length; i++){
-        const data = classes[0];
+    for(let i = 0; i<Object.keys(classes).length; i++){
+        const data = classes[i];
         let timeTable = Array.from({ length: rows }, () => Array(columns).fill("0"));
-        combineResult[0] = {};
+        combineResult[idx] = {};
 
         timeTable = fillTimeTable(data,timeTable);
-        for(let i = 1; i<Object.keys(classes).length; i++){
-            timeTable = fillTimeTable(classes[i],timeTable);
+        for(let k = 0; k<Object.keys(classes).length; k++){
+            timeTable = fillTimeTable(classes[k],timeTable);
         }
 
-        combineResult[0] = timeTable;
-    // }
+        for(let z = 0; z < Object.keys(combineResult).length; z++){
+            if(JSON.stringify(combineResult[z]) === JSON.stringify(timeTable)){verify++;}
+        }
+        if(verify === 0 ){combineResult[idx] = timeTable; idx++;}
+        else{delete combineResult[idx];}
+        verify = 0;
+    }
+    //계산이 끝나면 결과페이지로 이동
+    const resultBtn = document.createElement('button');
+    resultBtn.setAttribute("id","goResultPage");
+    resultBtn.addEventListener('click', function(){
+        window.location.href = 'result.html';
+    })
+    resultBtn.textContent = "조합결과";
+    document.getElementById("resultBox").append(resultBtn);
+    sessionStorage.setItem('userData', JSON.stringify(classes));
+    sessionStorage.setItem('userResultData', JSON.stringify(combineResult));
 }
 
 function fillTimeTable(data,timeTable){
@@ -182,7 +198,6 @@ function fillTimeTable(data,timeTable){
         for(let c = 0; c<timeTable[r].length; c++){
             if(timeTable[r][c].name === data.name){scor++;}
         }
-        console.log(scor);
     }
 
     if(scor == 0){
