@@ -3,13 +3,22 @@ let totalClass
 let idx = 0;
 let totalCnt = 1;
 
+document.getElementById("manual").addEventListener('click', function(){
+    document.getElementById("manualTable").style.display = "block";
+})
+document.getElementById("close").addEventListener("click", function(){
+    document.getElementById("manualTable").style.display = "none";
+})
 const classes = {}        ;     //과목 객체
 const combineResult = {};     //시간표 조합 객체
 function addSubject(){
     //입력받은 값을 객체에 저장하고 페이지에 추가합니다
-    const dataInclude =  document.getElementById("shouldInclude").value;
+    const dataInclude =  document.getElementById("shouldInclude");
     const dataName =  document.getElementById("subjectName").value;
     const dataCode =  document.getElementById("subjectCode").value;
+    const dataDay =  document.getElementById("subjectDay").value;
+    const dataStartTime =  document.getElementById("subjectStartTime").value;
+    const dataFinishTime =  document.getElementById("subjectFinishTime").value;
 
     const location = document.getElementById("classTableBody");
 
@@ -19,21 +28,28 @@ function addSubject(){
     const newRow2 = document.createElement("td");
     const newRow3 = document.createElement("td");
     const newRow4 = document.createElement("td");
+    const newRow5 = document.createElement("td");
 
     const checkBox = document.createElement("div");
     const name = document.createElement("div");
     const code = document.createElement("div");
-    const deleteBtn = document.createElement("button");
+    const day = document.createElement("div");
+    const Time = document.createElement("div");
+    
+    let answer = dataInclude.checked ? "Y" : "N";
+    checkBox.textContent = answer;
+    const addResult = addClassToObject(dataName,dataCode,dataDay, dataStartTime, dataFinishTime, answer);
 
-    deleteBtn.setAttribute('class', 'deleteBtn');
-    deleteBtn.addEventListener('click', function(){
-        delClassToObject(newRow, dataName);
-    })
 
-    checkBox.textContent = dataInclude;
     name.textContent = dataName;
-    code.textContent = dataCodecode;
-    deleteBtn.textContent = '-';
+    code.textContent = dataCode;
+    day.textContent = dataDay;
+    let timeData = "";
+    for(let i = dataStartTime; i<=dataFinishTime; i++){
+        timeData += i;
+    }
+    Time.textContent = timeData;
+
 
     location.append(newRow);
 
@@ -41,30 +57,30 @@ function addSubject(){
     newRow.append(newRow2);
     newRow.append(newRow3);
     newRow.append(newRow4);
+    newRow.append(newRow5);
+
 
     newRow1.append(checkBox);
     newRow2.append(name);
     newRow3.append(code);
-    newRow4.append(deleteBtn);
+    newRow4.append(day);
+    newRow5.append(Time);
 
-    
-    addClassToObject(dataInclude,dataName,dataCode);
 }
 
-function addClassToObject(dataInclude,dataName,dataCode) {
+function addClassToObject(dataName,dataCode,dataDay, dataStartTime, dataFinishTime, answer) {
     //과목을 객체에 추가합니다
-    classes[dataName] = {};
-    classes[dataInclude].check = dataInclude;
-    classes[dataName].name = data;
-    classes[dataName].id = dataCode;
-}
+    classes[idx] = {};
+    classes[idx].name = dataName;
+    classes[idx].id = dataCode;
+    classes[idx].day = dataDay;
+    classes[idx].startTime = dataStartTime;
+    classes[idx].finishTime = dataFinishTime;
+    classes[idx].check = answer;
+    idx++;
+    return classes[idx-1];
 
-function delClassToObject(newRow,dataName) {
-    //과목을 객체와 페이지에서 삭제합니다
-    delete classes[dataName];
-    newRow.remove();
 }
-
 document.getElementById('fileInput').addEventListener('change', function(event) {
     const file = event.target.files[0];
     if (file) {
@@ -115,19 +131,14 @@ function addTable(data){
     const newRow3 = document.createElement("td");
     const newRow4 = document.createElement("td");
     const newRow5 = document.createElement("td");
-    const newRow6 = document.createElement("td");
+
 
     const checkBox = document.createElement("div");
     const name = document.createElement("div");
     const code = document.createElement("div");
     const day = document.createElement("div");
     const time = document.createElement("div");
-    const deleteBtn = document.createElement("button");
-
-    deleteBtn.setAttribute('class', 'deleteBtn');
-    deleteBtn.addEventListener('click', function(){
-        delClassToObject(newRow, dataName);
-    })
+ 
     if(dataInclude === "Y"){
         newRow.setAttribute("class", "selected");
     }
@@ -136,7 +147,6 @@ function addTable(data){
     code.textContent = dataCode;
     day.textContent = dataDay;
     time.textContent = dataTime;
-    deleteBtn.textContent = '-';
 
     location.append(newRow);
 
@@ -145,14 +155,13 @@ function addTable(data){
     newRow.append(newRow3);
     newRow.append(newRow4);
     newRow.append(newRow5);
-    newRow.append(newRow6);
+
 
     newRow1.append(checkBox);
     newRow2.append(name);
     newRow3.append(code);
     newRow4.append(day);
     newRow5.append(time);
-    newRow6.append(deleteBtn);
 
     idx++;
 }

@@ -10,31 +10,59 @@
 </head>
 <body>
     <header>
-        시간표 조합 생성기
+        <div><a href = "index.html">시간표 조합 생성기</a></div>
     </header>
     <main>
         <section id = "howToUse">
-            
+            <div id = "notice">
+                <p class = "noticeText">필수 기능은 아직 제공되지 않습니다!</p>
+            </div>
+
+            <div class ="desc">어떻게 사용하나요?</div>
+            <div id = "step">
+                <div class = "steptxt">1 . 쿠티스나 수강신청시스템에서 수강하려는 과목 목록을 복사합니다</div>
+                <div class = "steptxt">2 . 아래 양식처럼 양식에 맞게 메모장에 작성 후 저장해주세요</div>
+                <div class = "steptxt">    과목명, 과목코드, 요일(ex. 화), 시작교시(ex. 6), 종료교시(ex. 8), 필수포함여부(Y / N)</div>
+                <div class = "steptxt">3 . 작성한 txt 파일을 첨부하면 자동으로 시간표가 조합됩니다</div>
+                <div class = "steptxt">4 . 수동으로도 가능합니다</div>
+            </div>
         </section>
         
         <section id = "classStatus">
             <div id = "autoInputBox">
+                <label for = "fileInput">자동으로 추가하기</label><br>
                 <input type = 'file' id="fileInput">
             </div>
             <div id = "manualInputBox">
-                <label for = "shouldInclude">필수 여부</label>
-                <input id = "shouldInclude" type = "checkbox">
-
-                <label for = "subjectName">과목이름</label>
-                <input id = "subjectName" type = "text">
-
-                <label for = "subjectCode">과목코드</label>
-                <input id = "subjectCode" type = "text">
-
-                <button onclick = "addSubject()">추가하기</button>
+                <div id = "manual" class = "desc">수동으로 추가하기</div>
+                <div id = "manualTable">
+                    <div id = "close" style = "float : right; font-weight: 600; background-color: red; color: white; width : 64px; text-align: center;">닫기</div>
+                    <table >
+                        <thead>
+                            <th><label for = "shouldInclude">필수 여부</label></th>
+                            <th><label for = "subjectName">과목이름</label></th>
+                            <th><label for = "subjectCode">과목코드</label></th>
+                            <th><label for = "subjectDay">요일</label></th>
+                            <th><label for = "subjectStartTime">시작시간</label></th>
+                            <th><label for = "subjectFinishTime">종료시간</label></th>
+                            <th><label>추가</label></th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input id = "shouldInclude" type = "checkbox"></td>
+                                <td><input id = "subjectName" type = "text"></td>
+                                <td><input id = "subjectCode" type = "text"></td>
+                                <td><input id = "subjectDay" type = "text"></td>
+                                <td><input id = "subjectStartTime" type = "text"></td>
+                                <td><input id = "subjectFinishTime" type = "text"></td>
+                                <td><button onclick = "addSubject()">추가하기</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
-            <div>추가된 수업</div>
+            <div class = "desc">추가된 수업</div>
             <div id = "classTableBox">
                 <table id = "classTable">
                     <thead>
@@ -43,7 +71,6 @@
                         <th>과목코드</th>
                         <th>요일</th>
                         <th>교시</th>
-                        <th>삭제</th>
                     </thead>
                 <tbody id = "classTableBody">
 
