@@ -45,7 +45,7 @@ function makeDiv(data , num) {
             else{
                 if(data[k-1][i] !== '0'){
                     td.textContent = data[k-1][i].name + " (" +data[k-1][i].id + ")" ;
-                    td.style.backgroundColor = "rgb(220, 220, 220)";
+                    td.style.backgroundColor = "#C9D3F2";
                 }
             }
         }

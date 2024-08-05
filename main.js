@@ -2,15 +2,23 @@ let totalSubject
 let totalClass
 let idx = 0;
 let totalCnt = 1;
+let shouldIncludeThis = [];
+
+let timeTable = {};
 
 document.getElementById("manual").addEventListener('click', function(){
     document.getElementById("manualTable").style.display = "block";
 })
+
 document.getElementById("close").addEventListener("click", function(){
     document.getElementById("manualTable").style.display = "none";
 })
-const classes = {}        ;     //과목 객체
+
+const classes = {}        ;     //수업 객체
 const combineResult = {};     //시간표 조합 객체
+const subject = [];            //수업들을 과목에 맞게 분리하여 저장하는 배열
+const subjectName = [];
+
 function addSubject(){
     //입력받은 값을 객체에 저장하고 페이지에 추가합니다
     const dataInclude =  document.getElementById("shouldInclude");
@@ -79,17 +87,15 @@ function addClassToObject(dataName,dataCode,dataDay, dataStartTime, dataFinishTi
     classes[idx].check = answer;
     idx++;
     return classes[idx-1];
-
 }
+
 document.getElementById('fileInput').addEventListener('change', function(event) {
     const file = event.target.files[0];
     if (file) {
         const reader = new FileReader();
-            
         reader.onload = function(e) {
             const text = e.target.result;
             const lines = text.split('\n').filter(line => line.trim() !== ''); // 빈 줄 제외
-                
             // 새 데이터를 기존 객체 배열에 추가
             lines.forEach(line => {
                 const [name, id, day, start, finish, check] = line.split(',').map(item => item.trim());
@@ -166,29 +172,115 @@ function addTable(data){
     idx++;
 }
 
-function makeTimeTable() {
+function checkThisValid() { //필수여부가 유효한지 확인
+    for(let k = 0; k<Object.keys(classes).length; k++){
+        if(classes[k].check === "Y"){
+            if (shouldIncludeThis.some(element => element.name === classes[k].name)) {
+                alert("똑같은 과목이 있습니다! 다시 입력해주세요");
+                window.location.reload();
+                return;
+            }
+            if (shouldIncludeThis.some(element => {
+                return element.day === classes[k].day &&
+                       (element.startTime === classes[k].startTime || element.finishTime === classes[k].finishTime);
+            })) {
+                alert("동일 시간대에 필수과목을 한개 이상 선택했습니다! 다시 입력해주세요");
+                window.location.reload();
+                return;
+            }
+            else{shouldIncludeThis.push(classes[k])}
+        }
+    }
+}
+
+function makeTimeTable() {  //시간표 조합만들기
     const rows = 5;
     const columns = 8;
     let verify = 0;
     let idx = 0;
-
+    
+    checkThisValid();
+    
     for(let i = 0; i<Object.keys(classes).length; i++){
         const data = classes[i];
-        let timeTable = Array.from({ length: rows }, () => Array(columns).fill("0"));
-        combineResult[idx] = {};
 
-        timeTable = fillTimeTable(data,timeTable);
-        for(let k = 0; k<Object.keys(classes).length; k++){
-            timeTable = fillTimeTable(classes[k],timeTable);
+        if (!subject[data.name]) {
+            subject[data.name] = [];
+            subjectName.push(data.name);
         }
+        subject[data.name].push(data);     //수업들을 과목명으로 분리
 
-        for(let z = 0; z < Object.keys(combineResult).length; z++){
-            if(JSON.stringify(combineResult[z]) === JSON.stringify(timeTable)){verify++;}
-        }
-        if(verify === 0 ){combineResult[idx] = timeTable; idx++;}
-        else{delete combineResult[idx];}
-        verify = 0;
+
+        // timeTable = Array.from({ length: rows }, () => Array(columns).fill("0"));
+        // combineResult[idx] = {};
+        
+        // shouldIncludeThis.forEach(element => {
+        //     timeTable = fillTimeTable(element,timeTable);
+        // });
+
+
+        // timeTable = fillTimeTable(data,timeTable);
+        // for(let k = 0; k<Object.keys(classes).length; k++){
+        //     timeTable = fillTimeTable(classes[k],timeTable);
+        // }
+
+        // for(let z = 0; z < Object.keys(combineResult).length; z++){
+        //     if(JSON.stringify(combineResult[z]) === JSON.stringify(timeTable)){verify++;}
+        // }
+        // if(verify === 0 ){combineResult[idx] = timeTable; idx++;}
+        // else{delete combineResult[idx];}
+        // verify = 0;
     }
+
+    for (let k = subjectName.length - 1; k > 0; k--) {
+        const j = Math.floor(Math.random() * (k + 1));
+        [subjectName[k], subjectName[j]] = [subjectName[j], subjectName[k]]; // 과목 순서를 랜덤으로 바꿈 -> 피셔에이츠 셔플알고리즘
+    }
+
+    subject[subjectName[0]].forEach(element1 => {
+
+        let cacheTable = [classes[0],classes[0],classes[0],classes[0],classes[0],classes[0],classes[0]];
+        
+        cacheTable[0] = element1;
+        
+        subject[subjectName[1]].forEach(element2 => {
+            cacheTable[1] = element2;
+            subject[subjectName[2]].forEach(element3 => {
+                cacheTable[2] = element3;
+                subject[subjectName[3]].forEach(element4 => {
+                    cacheTable[3] = element4;
+                    subject[subjectName[4]].forEach(element5 => {
+                        cacheTable[4] = element5;
+                        subject[subjectName[5]].forEach(element6 => {
+                            cacheTable[5] = element6;
+                            subject[subjectName[6]].forEach(element7 => {
+                                cacheTable[6] = element7;
+
+                                timeTable = Array.from({ length: rows }, () => Array(columns).fill("0"));
+                                shouldIncludeThis.forEach(element => {
+                                    timeTable = fillTimeTable(element,timeTable);
+                                });
+
+                                cacheTable.forEach(element => {
+                                    timeTable = fillTimeTable(element,timeTable);
+                                });
+
+                                for(let z = 0; z < Object.keys(combineResult).length; z++){
+                                    if(JSON.stringify(combineResult[z]) === JSON.stringify(timeTable)){verify++;}
+                                }
+                                if(verify === 0 ){combineResult[idx] = timeTable; idx++;}
+                                else{delete combineResult[idx];}
+                                verify = 0;
+                                console.log("progress");
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    });
+
+    
     //계산이 끝나면 결과페이지로 이동
     const resultBtn = document.createElement('button');
     resultBtn.setAttribute("id","goResultPage");
@@ -199,6 +291,8 @@ function makeTimeTable() {
     document.getElementById("resultBox").append(resultBtn);
     sessionStorage.setItem('userData', JSON.stringify(classes));
     sessionStorage.setItem('userResultData', JSON.stringify(combineResult));
+    sessionStorage.setItem('userSubjectData', JSON.stringify(subject));
+    sessionStorage.setItem('userSubjectName', JSON.stringify(subjectName));
 }
 
 function fillTimeTable(data,timeTable){
