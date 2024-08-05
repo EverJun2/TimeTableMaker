@@ -2,7 +2,7 @@ let totalSubject
 let totalClass
 let idx = 0;
 let totalCnt = 1;
-
+let shouldIncludeThis = [];
 document.getElementById("manual").addEventListener('click', function(){
     document.getElementById("manualTable").style.display = "block";
 })
@@ -171,11 +171,35 @@ function makeTimeTable() {
     const columns = 8;
     let verify = 0;
     let idx = 0;
+    
+    for(let k = 0; k<Object.keys(classes).length; k++){
+        if(classes[k].check === "Y"){
+            if (shouldIncludeThis.some(element => element.name === classes[k].name)) {
+                alert("똑같은 과목이 있습니다! 다시 입력해주세요");
+                window.location.reload();
+                return;
+            }
+            if (shouldIncludeThis.some(element => {
+                return element.day === classes[k].day &&
+                       (element.startTime === classes[k].startTime || element.finishTime === classes[k].finishTime);
+            })) {
+                alert("동일 시간대에 필수과목을 한개 이상 선택했습니다! 다시 입력해주세요");
+                window.location.reload();
+                return;
+            }
+            else{shouldIncludeThis.push(classes[k])}
+        }
+    }
 
     for(let i = 0; i<Object.keys(classes).length; i++){
         const data = classes[i];
         let timeTable = Array.from({ length: rows }, () => Array(columns).fill("0"));
         combineResult[idx] = {};
+        
+        shouldIncludeThis.forEach(element => {
+            timeTable = fillTimeTable(element,timeTable);
+        });
+
 
         timeTable = fillTimeTable(data,timeTable);
         for(let k = 0; k<Object.keys(classes).length; k++){
