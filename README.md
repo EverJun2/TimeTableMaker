@@ -23,8 +23,8 @@
 
 ### :white_check_mark:  제작 과정
 <ul>
-  <li><a href = " " >디자인 및 설계</a></li>
-  <li><a href = " " >조합 알고리즘 설계</a></li>
+  <li><a href = "https://everjun2.tistory.com/1" >디자인 및 설계</a></li>
+  <li><a href = "https://everjun2.tistory.com/2" >조합 알고리즘 설계</a></li>
   <li><a href = " " >회고</a></li>
 </ul>
 
