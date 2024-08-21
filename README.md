@@ -1,5 +1,6 @@
-<div style = "width : 80%, margin 0 auto, align : center">
-  <a href = "https://everjun2.github.io/TimeTableMaker/"><img src = "https://github.com/user-attachments/assets/2718b8bc-90ea-4889-a24f-9e2b8f7a425e"></a><br><br>
+<div align = center style = "width : 80%, margin 0 auto">
+  <img src = "https://github.com/user-attachments/assets/2718b8bc-90ea-4889-a24f-9e2b8f7a425e"><br>
+  <a href = "https://everjun2.github.io/TimeTableMaker/">페이지로 이동</a><br><br>
 
   <div>
     <img src = "https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white">
