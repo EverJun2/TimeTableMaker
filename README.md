@@ -25,7 +25,7 @@
 <ul>
   <li><a href = "https://everjun2.tistory.com/1" >디자인 및 설계</a></li>
   <li><a href = "https://everjun2.tistory.com/2" >조합 알고리즘 설계</a></li>
-  <li><a href = " " >회고</a></li>
+  <li><a href = "https://everjun2.tistory.com/3" >회고</a></li>
 </ul>
 
 ### :white_check_mark:  동작 화면
