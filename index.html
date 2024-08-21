@@ -9,16 +9,19 @@
     <script defer src = "main.js"></script>
 </head>
 <body>
+
     <header>
         <div><a href = "index.html">시간표 조합 생성기</a></div>
     </header>
-    <main>
+    
+    <main id = "main">
         <section id = "howToUse">
             <div class ="desc">공지사항</div>
             <div id = "notice">
                 <p class = "noticeText">조합이 불안정 할 수 있으니 꼭 결과를 다시 확인해보세요 & <b>계산결과에 따라 부득이하게 포함되지 않는 과목이 있을 수 있습니다</b></p>
                 <p class = "noticeText">모바일 환경은 최적화 되어있지 않습니다!</p>
                 <p class = "noticeText">반드시 <b>수강하려는 과목으로만(수강하려는 과목에 대한 수업)</b> 업로드 해주세요!</p>
+                <p class = "noticeText"><b>필수 포함요소가 많을수록 결과와 소요시간이 감소합니다!</b></p>
             </div>
 
             <div class ="desc">어떻게 사용하나요?</div>
@@ -28,7 +31,7 @@
                 <div class = "steptxt"><b>과목명, 과목코드, 요일(ex. 화), 시작교시(ex. 6), 종료교시(ex. 8), 필수포함여부(Y / N)</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     예시 : 컴퓨터심리학개론, 1111, 월, 1, 3 , N</div>
                 <div class = "steptxt">3 . 작성한 txt 파일을 첨부하면 자동으로 시간표가 조합됩니다</div>
-                <div class = "steptxt">4 . 수동으로도 가능합니다</div>
+                <div class = "steptxt">4 . 수동기능은 불안정합니다!!</div>
             </div>
         </section>
         
@@ -38,6 +41,13 @@
                 <label for = "fileInput">자동으로 추가하기</label><br>
                 <input accept=".txt" type = 'file' id="fileInput">
             </div>
+            <div id = 'overlay'>
+                <section id = "modal">
+                    <h3 style = "color: red;">조합중 입니다!</h3>
+                    <p>경우에 따라 최대 5분이 소요될 수 있어요</p>
+            </section>
+            </div>
+
             <div id = "manualInputBox">
                 <div id = "manual" class = "desc">수동으로 추가하기 - 클릭</div>
                 <div id = "manualTable">
@@ -85,8 +95,10 @@
             
 
             <div id = "resultBox">
-                <button onclick = "makeTimeTable()">조합하기</button>
+                <button onclick = "modal()">조합하기</button>
             </div>
+
+            
         </section>
     </main>
     <footer>

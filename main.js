@@ -196,9 +196,15 @@ function checkThisValid() { //필수여부가 유효한지 확인
         }
     }
 }
+function modal() {
+    document.getElementById("modal").style.display = "block";
+    document.getElementById("overlay").style.display = "block";
+    setTimeout(() => {
+        makeTimeTable();
+    }, 1);
+}
 
 function makeTimeTable() {  //시간표 조합만들기
-
 
     let idx = 0;
     
@@ -212,27 +218,6 @@ function makeTimeTable() {  //시간표 조합만들기
             subjectName.push(data.name);
         }
         subject[data.name].push(data);     //수업들을 과목명으로 분리
-
-
-        // timeTable = Array.from({ length: rows }, () => Array(columns).fill("0"));
-        // combineResult[idx] = {};
-        
-        // shouldIncludeThis.forEach(element => {
-        //     timeTable = fillTimeTable(element,timeTable);
-        // });
-
-
-        // timeTable = fillTimeTable(data,timeTable);
-        // for(let k = 0; k<Object.keys(classes).length; k++){
-        //     timeTable = fillTimeTable(classes[k],timeTable);
-        // }
-
-        // for(let z = 0; z < Object.keys(combineResult).length; z++){
-        //     if(JSON.stringify(combineResult[z]) === JSON.stringify(timeTable)){verify++;}
-        // }
-        // if(verify === 0 ){combineResult[idx] = timeTable; idx++;}
-        // else{delete combineResult[idx];}
-        // verify = 0;
     }
 
     for (let k = subjectName.length - 1; k > 0; k--) {
@@ -254,52 +239,17 @@ function makeTimeTable() {  //시간표 조합만들기
 
         roop(1,cacheTable);
     });
-
-        
-        
-        // subject[subjectName[1]].forEach(element2 => {
-        //     cacheTable[1] = element2;
-        //     subject[subjectName[2]].forEach(element3 => {
-        //         cacheTable[2] = element3;
-        //         subject[subjectName[3]].forEach(element4 => {
-        //             cacheTable[3] = element4;
-        //             subject[subjectName[4]].forEach(element5 => {
-        //                 cacheTable[4] = element5;
-        //                 subject[subjectName[5]].forEach(element6 => {
-        //                     cacheTable[5] = element6;
-        //                     subject[subjectName[6]].forEach(element7 => {
-        //                         cacheTable[6] = element7;
-
-        //                         timeTable = Array.from({ length: rows }, () => Array(columns).fill("0"));
-        //                         shouldIncludeThis.forEach(element => {
-        //                             timeTable = fillTimeTable(element,timeTable);
-        //                         });
-
-        //                         cacheTable.forEach(element => {
-        //                             timeTable = fillTimeTable(element,timeTable);
-        //                         });
-
-        //                         for(let z = 0; z < Object.keys(combineResult).length; z++){
-        //                             if(JSON.stringify(combineResult[z]) === JSON.stringify(timeTable)){verify++;}
-        //                         }
-        //                         if(verify === 0 ){combineResult[idx] = timeTable; idx++;}
-        //                         else{delete combineResult[idx];}
-        //                         verify = 0;
-        //                         console.log("progress");
-        //                     });
-        //                 });
-        //             });
-        //         });
-        //     });
-        // });
-    // });
-
     
     //계산이 끝나면 결과페이지로 이동
+    
+    document.getElementById("modal").style.display = "none";
+    document.getElementById("overlay").style.display = "none";
+
     const resultBtn = document.createElement('button');
     resultBtn.setAttribute("id","goResultPage");
     resultBtn.addEventListener('click', function(){
         window.location.href = 'result.html';
+        
     })
     resultBtn.textContent = "조합결과";
     document.getElementById("resultBox").append(resultBtn);
@@ -339,7 +289,6 @@ function roop(indx,cacheTable) {
                     cntClass = 0;
                 }
                 verify = 0;
-                console.log("progress");
             });
             return;
         }
