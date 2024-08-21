@@ -1,10 +1,14 @@
 let totalSubject
 let totalClass
+let cntCombine = 0;
 let idx = 0;
 let totalCnt = 1;
 let shouldIncludeThis = [];
-
+const rows = 5;
+const columns = 8;
 let timeTable = {};
+let verify = 0;
+let cntClass = 0;
 
 document.getElementById("manual").addEventListener('click', function(){
     document.getElementById("manualTable").style.display = "block";
@@ -194,9 +198,8 @@ function checkThisValid() { //필수여부가 유효한지 확인
 }
 
 function makeTimeTable() {  //시간표 조합만들기
-    const rows = 5;
-    const columns = 8;
-    let verify = 0;
+
+
     let idx = 0;
     
     checkThisValid();
@@ -237,48 +240,59 @@ function makeTimeTable() {  //시간표 조합만들기
         [subjectName[k], subjectName[j]] = [subjectName[j], subjectName[k]]; // 과목 순서를 랜덤으로 바꿈 -> 피셔에이츠 셔플알고리즘
     }
 
+    
     subject[subjectName[0]].forEach(element1 => {
-
-        let cacheTable = [classes[0],classes[0],classes[0],classes[0],classes[0],classes[0],classes[0]];
-        
-        cacheTable[0] = element1;
-        
-        subject[subjectName[1]].forEach(element2 => {
-            cacheTable[1] = element2;
-            subject[subjectName[2]].forEach(element3 => {
-                cacheTable[2] = element3;
-                subject[subjectName[3]].forEach(element4 => {
-                    cacheTable[3] = element4;
-                    subject[subjectName[4]].forEach(element5 => {
-                        cacheTable[4] = element5;
-                        subject[subjectName[5]].forEach(element6 => {
-                            cacheTable[5] = element6;
-                            subject[subjectName[6]].forEach(element7 => {
-                                cacheTable[6] = element7;
-
-                                timeTable = Array.from({ length: rows }, () => Array(columns).fill("0"));
-                                shouldIncludeThis.forEach(element => {
-                                    timeTable = fillTimeTable(element,timeTable);
-                                });
-
-                                cacheTable.forEach(element => {
-                                    timeTable = fillTimeTable(element,timeTable);
-                                });
-
-                                for(let z = 0; z < Object.keys(combineResult).length; z++){
-                                    if(JSON.stringify(combineResult[z]) === JSON.stringify(timeTable)){verify++;}
-                                }
-                                if(verify === 0 ){combineResult[idx] = timeTable; idx++;}
-                                else{delete combineResult[idx];}
-                                verify = 0;
-                                console.log("progress");
-                            });
-                        });
-                    });
-                });
-            });
+        let cacheTable = [];                             //조합을 위한 임시 테이블
+        for(let i = 0; i<subjectName.length; i++){
+            cacheTable[i] = classes[0];
+        }
+        shouldIncludeThis.forEach(element => {
+            if(element.name != subjectName[0]){
+                cacheTable[0] = element1;
+            }
         });
+
+        roop(1,cacheTable);
     });
+
+        
+        
+        // subject[subjectName[1]].forEach(element2 => {
+        //     cacheTable[1] = element2;
+        //     subject[subjectName[2]].forEach(element3 => {
+        //         cacheTable[2] = element3;
+        //         subject[subjectName[3]].forEach(element4 => {
+        //             cacheTable[3] = element4;
+        //             subject[subjectName[4]].forEach(element5 => {
+        //                 cacheTable[4] = element5;
+        //                 subject[subjectName[5]].forEach(element6 => {
+        //                     cacheTable[5] = element6;
+        //                     subject[subjectName[6]].forEach(element7 => {
+        //                         cacheTable[6] = element7;
+
+        //                         timeTable = Array.from({ length: rows }, () => Array(columns).fill("0"));
+        //                         shouldIncludeThis.forEach(element => {
+        //                             timeTable = fillTimeTable(element,timeTable);
+        //                         });
+
+        //                         cacheTable.forEach(element => {
+        //                             timeTable = fillTimeTable(element,timeTable);
+        //                         });
+
+        //                         for(let z = 0; z < Object.keys(combineResult).length; z++){
+        //                             if(JSON.stringify(combineResult[z]) === JSON.stringify(timeTable)){verify++;}
+        //                         }
+        //                         if(verify === 0 ){combineResult[idx] = timeTable; idx++;}
+        //                         else{delete combineResult[idx];}
+        //                         verify = 0;
+        //                         console.log("progress");
+        //                     });
+        //                 });
+        //             });
+        //         });
+        //     });
+        // });
+    // });
 
     
     //계산이 끝나면 결과페이지로 이동
@@ -291,8 +305,54 @@ function makeTimeTable() {  //시간표 조합만들기
     document.getElementById("resultBox").append(resultBtn);
     sessionStorage.setItem('userData', JSON.stringify(classes));
     sessionStorage.setItem('userResultData', JSON.stringify(combineResult));
-    sessionStorage.setItem('userSubjectData', JSON.stringify(subject));
-    sessionStorage.setItem('userSubjectName', JSON.stringify(subjectName));
+}
+
+function roop(indx,cacheTable) {
+    let checkVal = 0;
+    shouldIncludeThis.forEach(element => {
+        if(subjectName[indx] == element.name){
+            checkVal ++;
+        }
+    });
+
+    if(checkVal == 0){
+        if(indx == subjectName.length-1){
+            subject[subjectName[indx]].forEach(element => {
+                cacheTable[indx] = element;
+                timeTable = Array.from({ length: rows }, () => Array(columns).fill("0"));
+                shouldIncludeThis.forEach(element1 => {
+                    timeTable = fillTimeTable(element1,timeTable);
+                });
+    
+                cacheTable.forEach(element2 => {
+                    timeTable = fillTimeTable(element2,timeTable);
+                });
+    
+                for(let z = 0; z < Object.keys(combineResult).length; z++){
+                    if(JSON.stringify(combineResult[z]) === JSON.stringify(timeTable)){verify++;}
+                }
+    
+                if(verify === 0 ){
+                    if(cntClass == subjectName.length){
+                        combineResult[cntCombine] = timeTable; cntCombine+=1;
+                    }
+                    cntClass = 0;
+                }
+                verify = 0;
+                console.log("progress");
+            });
+            return;
+        }
+        subject[subjectName[indx]].forEach(element => {
+            cacheTable[indx] = element;
+            roop(indx+1,cacheTable);
+        });
+    }
+
+    else{
+        if(indx == subjectName.length){return;}
+        roop(indx+1,cacheTable);
+    }
 }
 
 function fillTimeTable(data,timeTable){
@@ -311,6 +371,7 @@ function fillTimeTable(data,timeTable){
             }
             if(score == 0){
                 for(let z = data.startTime; z <= data.finishTime; z++){timeTable[0][z-1] = data;}
+                cntClass+=1;
             }
         }
         else if(data.day === "화"){
@@ -320,6 +381,7 @@ function fillTimeTable(data,timeTable){
             }
             if(score == 0){
                 for(let z = data.startTime; z <= data.finishTime; z++){timeTable[1][z-1] = data;}
+                cntClass+=1;
             }
         }
         else if(data.day === "수"){
@@ -329,6 +391,7 @@ function fillTimeTable(data,timeTable){
             }
             if(score == 0){
                 for(let z = data.startTime; z <= data.finishTime; z++){timeTable[2][z-1] = data;}
+                cntClass+=1;
             }
         }
         else if(data.day === "목"){
@@ -338,6 +401,7 @@ function fillTimeTable(data,timeTable){
             }
             if(score == 0){
                 for(let z = data.startTime; z <= data.finishTime; z++){timeTable[3][z-1] = data;}
+                cntClass+=1;
             }
         }
         else if(data.day === "금"){
@@ -347,6 +411,7 @@ function fillTimeTable(data,timeTable){
             }
             if(score == 0){
                 for(let z = data.startTime; z <= data.finishTime; z++){timeTable[4][z-1] = data;}
+                cntClass+=1;
             }
         }
         
