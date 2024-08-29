@@ -1,6 +1,6 @@
 <div style = "width : 80%, margin 0 auto">
   <img src = "https://github.com/user-attachments/assets/2718b8bc-90ea-4889-a24f-9e2b8f7a425e"><br>
-  <div align = center><a href = "https://everjun2.github.io/TimeTableMaker/">페이지로 이동</a></div><br>
+  <div align = center><a href = "https://everjun2.github.io/TimeTableMaker/">페이지로 이동 (test.txt 파일로 테스트해보세요!)</a></div><br>
 
 ### :white_check_mark:  사용기술
   <div><br>
@@ -28,11 +28,19 @@
   <li><a href = "https://everjun2.tistory.com/3" >회고</a></li>
 </ul>
 
-### :white_check_mark:  동작 화면
+### :white_check_mark:  동작 화면<br><br>
 
+#### :arrow_forward: 메인화면<br><br>
+<img src = "https://github.com/user-attachments/assets/2650bd83-48df-4436-a9a2-c8ee737c9a0a"><br>
 
+#### :arrow_forward: txt파일로 과목 자동 추가 시 <br><br>
+<img src = "https://github.com/user-attachments/assets/b2635f3c-9f23-440f-ad7e-e02fe76210df"><br><br>
 
+#### :arrow_forward: 조합 중 모달 출력 <br><br>
+<img src = "https://github.com/user-attachments/assets/4bb5d779-f9c4-4607-8ea1-3a61dd44888b"><br><br>
 
+#### :arrow_forward: 조합 결과 보기 <br><br>
+<img src = "https://github.com/user-attachments/assets/cc433c03-9b03-47f3-825c-d0236514a7db"><br><br>
 
 
 
