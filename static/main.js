@@ -260,7 +260,7 @@ function makeTimeTable() {  //시간표 조합만들기
     const resultBtn = document.createElement('button');
     resultBtn.setAttribute("id","goResultPage");
     resultBtn.addEventListener('click', function(){
-        window.location.href = '/static/result.html';
+        window.location.href = './static/result.html';
         
     })
     resultBtn.textContent = "조합결과";
