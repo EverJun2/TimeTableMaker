@@ -33,6 +33,10 @@ main{
     margin : 100px auto;
     width : 60%;
 }
+img{
+    margin : 100px auto;
+    width : 100%;
+}
 
 table{
     margin: 40px 0;

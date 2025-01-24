@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>시간표 조합 생성기</title>
 
-    <link rel = "stylesheet" href="main.css">
+    <link rel = "stylesheet" href="css/main.css">
     <script defer src = "main.js"></script>
 </head>
 <body>
@@ -23,17 +23,8 @@
                 <p class = "noticeText">반드시 <b>수강하려는 과목으로만(수강하려는 과목에 대한 수업)</b> 업로드 해주세요!</p>
                 <p class = "noticeText"><b>필수 포함요소가 많을수록 결과와 소요시간이 감소합니다!</b></p>
             </div>
-
-            <div class ="desc">어떻게 사용하나요?</div>
-            <div id = "step">
-                <div class = "steptxt">1 . 수강신청시스템에서 수강하려는 과목 목록을 복사합니다</div>
-                <div class = "steptxt">2 . 아래 양식처럼 양식에 맞게 메모장에 편집 후 저장해주세요</div>
-                <div class = "steptxt">번호 과목번호 학수코드 과목명 학년 구분(전선) 학점 교수이름 수업시간(수 1 2 3) 필수여부(Y / N)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                <div class = "steptxt">모든 띄어쓰기는 공백이 아닌 탭으로 처리되어야 합니다.</div>
-                <div class = "steptxt">단 수업시간은 띄어쓰기 한칸으로 입력되어야 합니다</div>
-                <div class = "steptxt"><b>만약, 추가한 과목 중 수업시간이 한가지인 경우에는 반드시 필수여부를 Y로 입력하셔야 정상 작동합니다.</b> </div>
-                <div class = "steptxt">3 . 작성한 txt 파일을 첨부하면 자동으로 시간표가 조합됩니다</div>
-            </div>
+            <img src= "src/guide.png">
+            <div>요일과 시간 사이는 탭으로 수정안하고 그냥 두시면 됩니다</div>
         </section>
         
         <section id = "classStatus">
