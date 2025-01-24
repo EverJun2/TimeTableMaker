@@ -44,7 +44,7 @@ th{
     background-color: #1D79F2;
     color : white;
     font-weight: 300;
-    height : 30px;
+    height : 50px;
 }
 td{
     font-size : 1em;
@@ -55,16 +55,9 @@ tr td {
 }
 
 .selected{
-    background-color: rgb(246, 241, 130);
+    background-color: rgb(255, 212, 212);
 }
 
-.deleteBtn{
-    background-color: #F20505;
-    border : none;
-    color : white;
-    width : 20px;
-    height : 20px;
-}
 
 .resultTimeTable th{
     width : 100px;
@@ -100,14 +93,14 @@ input{
 
 #notice{
     color : white;
-    background-color: #fd6a53;
+    background-color: #f45e47;
     padding : 20px;
     margin-bottom:20px;
     font-size : 1.1em;
 }
 
 #step div{
-    background-color: #1D79F2;
+    background-color: #1e8200e9;
     padding : 20px;color : white;
 }
 
@@ -118,12 +111,12 @@ footer{
 }
 
 button{
-    background-color: #1D79F2;
+    background-color: #1774ef;
     border:none;
     width : 100px;
     height : 40px;
     color : white;
-    border-radius: 16px;
+    border-radius: 25px;
     margin:20px 0;
     font-size: 1.2em;
 }

@@ -9,20 +9,22 @@ const columns = 8;
 let timeTable = {};
 let verify = 0;
 let cntClass = 0;
+let colorIdx = 0;
+// document.getElementById("manual").addEventListener('click', function(){
+//     document.getElementById("manualTable").style.display = "block";
+// })
 
-document.getElementById("manual").addEventListener('click', function(){
-    document.getElementById("manualTable").style.display = "block";
-})
-
-document.getElementById("close").addEventListener("click", function(){
-    document.getElementById("manualTable").style.display = "none";
-})
+// document.getElementById("close").addEventListener("click", function(){
+//     document.getElementById("manualTable").style.display = "none";
+// })
 
 const classes = {}        ;     //수업 객체
 const combineResult = {};     //시간표 조합 객체
 const subject = [];            //수업들을 과목에 맞게 분리하여 저장하는 배열
 const subjectName = [];
-
+const colorList = ["rgba(237, 182, 255, 0.71)", "rgba(163, 232, 255, 0.83)", "rgba(171, 255, 162, 0.81)",
+     "rgba(253, 253, 150, 0.79)", "rgb(230, 230, 250)", "rgba(255, 218, 185, 0.88)", "rgba(216, 191, 216, 0.75)","rgba(144, 238, 144, 0.76)"
+     ];
 function addSubject(){
     //입력받은 값을 객체에 저장하고 페이지에 추가합니다
     const dataInclude =  document.getElementById("shouldInclude");
@@ -219,13 +221,22 @@ function makeTimeTable() {  //시간표 조합만들기
             subjectName.push(data.name);
         }
         subject[data.name].push(data);     //수업들을 과목명으로 분리
+        
     }
+    Object.entries(subject).forEach(([key, data]) => {
+        // 각 과목에 대해 색상을 적용
+        data.forEach(item => {
+            item.color = colorList[colorIdx];
+        });
+        
+        // 색상 인덱스를 증가시키고, 리스트 범위를 벗어나지 않게 처리
+        colorIdx = (colorIdx + 1) % colorList.length;
+    });
 
     for (let k = subjectName.length - 1; k > 0; k--) {
         const j = Math.floor(Math.random() * (k + 1));
         [subjectName[k], subjectName[j]] = [subjectName[j], subjectName[k]]; // 과목 순서를 랜덤으로 바꿈 -> 피셔에이츠 셔플알고리즘
     }
-
     
     subject[subjectName[0]].forEach(element1 => {
         let cacheTable = [];                             //조합을 위한 임시 테이블

@@ -22,6 +22,9 @@ function makeDiv(data , num) {
     table.setAttribute("class", "resultTimeTable");
     table.appendChild(thead);
     table.appendChild(tbody);
+    table.style.backgroundColor = "rgb(255, 255, 255)";
+    table.style.padding = "5px";
+    table.style.borderRadius = "5px";
 
     for(let i = 0; i<6; i++){
         const day = [num + " 번째","월","화","수","목","금"];
@@ -29,7 +32,9 @@ function makeDiv(data , num) {
         th.setAttribute('class', `th${i}`);
         th.textContent = day[i];
         thead.appendChild(th);
-        th.style.backgroundColor = "rgba(26, 26, 26, 0.83)";
+        th.style.backgroundColor = "rgba(12, 22, 44, 0.77)";
+        th.style.fontWeight = "500";
+        th.style.height = "60px";
     }
 
     for(let i = 0; i<8; i++){
@@ -42,14 +47,16 @@ function makeDiv(data , num) {
             tr.append(td);
             if(k==0){td.textContent = i+1; 
                 td.style.color = "white";
-                td.style.backgroundColor = "rgb(90, 89, 89)" ;
+                td.style.backgroundColor = "rgba(12, 22, 44, 0.7)" ;
             }
             else{
                 if(data[k-1][i] !== '0'){
                     td.textContent = data[k-1][i].name + " (" +data[k-1][i].id + ")" ;
-                    td.style.backgroundColor = "rgb(224, 222, 222)";
+                    td.style.backgroundColor = data[k-1][i].color;
+                    td.style.borderRadius = "4px";
                 }
-            }
+            }td.style.height = "60px";
         }
+        
     }
 }

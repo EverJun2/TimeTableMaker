@@ -27,18 +27,18 @@
             <div class ="desc">어떻게 사용하나요?</div>
             <div id = "step">
                 <div class = "steptxt">1 . 수강신청시스템에서 수강하려는 과목 목록을 복사합니다</div>
-                <div class = "steptxt">2 . 아래 양식처럼 양식에 맞게 메모장에 작성 후 저장해주세요</div>
-                <div class = "steptxt"><b>과목명, 과목코드, 요일(ex. 화), 시작교시(ex. 6), 종료교시(ex. 8), 필수포함여부(Y / N)</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    예시 : 컴퓨터심리학개론, 1111, 월, 1, 3 , N</div>
+                <div class = "steptxt">2 . 아래 양식처럼 양식에 맞게 메모장에 편집 후 저장해주세요</div>
+                <div class = "steptxt">번호 과목번호 학수코드 과목명 학년 구분(전선) 학점 교수이름 수업시간(수 1 2 3) 필수여부(Y / N)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <div class = "steptxt">모든 띄어쓰기는 공백이 아닌 탭으로 처리되어야 합니다.</div>
+                <div class = "steptxt">단 수업시간은 띄어쓰기 한칸으로 입력되어야 합니다</div>
+                <div class = "steptxt"><b>만약, 추가한 과목 중 수업시간이 한가지인 경우에는 반드시 필수여부를 Y로 입력하셔야 정상 작동합니다.</b> </div>
                 <div class = "steptxt">3 . 작성한 txt 파일을 첨부하면 자동으로 시간표가 조합됩니다</div>
-                <div class = "steptxt">4 . 수동기능은 불안정합니다!!</div>
             </div>
         </section>
         
         <section id = "classStatus">
             <div class ="desc">듣고 싶은 수업을 추가해주세요!</div>
             <div id = "autoInputBox">
-                <label for = "fileInput">자동으로 추가하기</label><br>
                 <input accept=".txt" type = 'file' id="fileInput">
             </div>
             <div id = 'overlay'>
@@ -48,7 +48,7 @@
             </section>
             </div>
 
-            <div id = "manualInputBox">
+            <!-- <div id = "manualInputBox">
                 <div id = "manual" class = "desc">수동으로 추가하기 - 클릭</div>
                 <div id = "manualTable">
                     <div id = "close" style = "float : right; font-weight: 600; background-color: red; color: white; width : 64px; text-align: center;">닫기</div>
@@ -75,7 +75,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div> -->
 
             <div class = "desc">추가된 수업</div>
             <div id = "classTableBox">
@@ -102,8 +102,8 @@
         </section>
     </main>
     <footer>
-        <p>본 웹사이트는 입력한 정보를 저장하지 않습니다</p>
-        <p>문의사항 : deverjun2@gmail.com</p>
+        <p>본 웹사이트는 입력한 정보를 서버에 저장하지 않습니다</p>
+        <a href = "https://github.com/everjun2">github</a>
     </footer>
 </body>
 </html>
