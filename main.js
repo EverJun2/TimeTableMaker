@@ -99,17 +99,18 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
         const reader = new FileReader();
         reader.onload = function(e) {
             const text = e.target.result;
-            const lines = text.split('\n').filter(line => line.trim() !== ''); // 빈 줄 제외
+            const lines = text.split('\n').filter(line => line.trim() !== '\t'); // 빈 줄 제외
             // 새 데이터를 기존 객체 배열에 추가
             lines.forEach(line => {
-                const [name, id, day, start, finish, check] = line.split(',').map(item => item.trim());
-                if (name && id && check && day && start && finish) {
+                const [no, id, code, name, year, type, grade, professor, time, check] = line.split('\t').map(item => item.trim());
+                if (no && id && code && name && year && type && grade && professor && time && check) {
+                    const temp = time.split(" ");
                     classes[idx] = {}
                     classes[idx].name = name;
                     classes[idx].id = id;
-                    classes[idx].day = day;
-                    classes[idx].startTime = start;
-                    classes[idx].finishTime = finish;
+                    classes[idx].day = temp[0];
+                    classes[idx].startTime = temp[1];
+                    classes[idx].finishTime = temp[temp.length-1];
                     classes[idx].check = check;
                     addTable(classes[idx]);
                 }

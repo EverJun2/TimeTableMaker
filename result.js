@@ -29,6 +29,7 @@ function makeDiv(data , num) {
         th.setAttribute('class', `th${i}`);
         th.textContent = day[i];
         thead.appendChild(th);
+        th.style.backgroundColor = "rgba(26, 26, 26, 0.83)";
     }
 
     for(let i = 0; i<8; i++){
@@ -41,11 +42,12 @@ function makeDiv(data , num) {
             tr.append(td);
             if(k==0){td.textContent = i+1; 
                 td.style.color = "white";
-                td.style.backgroundColor = "rgb(32, 125, 255)" }
+                td.style.backgroundColor = "rgb(90, 89, 89)" ;
+            }
             else{
                 if(data[k-1][i] !== '0'){
                     td.textContent = data[k-1][i].name + " (" +data[k-1][i].id + ")" ;
-                    td.style.backgroundColor = "#C9D3F2";
+                    td.style.backgroundColor = "rgb(224, 222, 222)";
                 }
             }
         }
